@@ -100,6 +100,11 @@ def ninegagnsfw_root():
         ninegag.scrap("https://9gag.com/v1/group-posts/group/nsfw/type/hot", nsfw=True)
     )
 
+@app.route("/9gagsafe")
+def ninegagsafe_root():
+    return to_response(
+        ninegag.scrap("https://9gag.com/v1/group-posts/group/nsfw/type/hot", nsfw=False)
+    )
 
 @app.route("/9gagnsfw/page/<page>")
 def ninegagnsfw_page(page):
@@ -109,6 +114,17 @@ def ninegagnsfw_page(page):
                 page
             ),
             nsfw=True,
+        )
+    )
+
+@app.route("/9gagsafe/page/<page>")
+def ninegagsafe_page(page):
+    return to_response(
+        ninegag.scrap(
+            "https://9gag.com/v1/group-posts/group/nsfw/type/hot?c=10&after={}".format(
+                page
+            ),
+            nsfw=False,
         )
     )
 
